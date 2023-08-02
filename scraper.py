@@ -34,6 +34,7 @@ import requests
 import pandas as pd
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+import chromedriver_autoinstaller
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -59,7 +60,8 @@ my_bar = st.progress(0, text="in progress")
 
 #Step 3: Crawler
 #service = Service(r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32")
-service = os.environ.get(r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32")
+chromedriver_autoinstaller.install()
+#service = os.environ.get(r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32")
 chrome_options = Options()
 #chrome_options.add_argument('--headless')
 
