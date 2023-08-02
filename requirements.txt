@@ -7,3 +7,4 @@ lxml
 openpyxl
 webdriver-manager
 os-sys
+setuptools
