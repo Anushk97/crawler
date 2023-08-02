@@ -2,7 +2,6 @@ pandas
 requests
 selenium
 python-time
-tqdm
 beautifulsoup4
 lxml
 openpyxl
