@@ -62,7 +62,8 @@ my_bar = st.progress(0, text="in progress")
 #service = Service(r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32")
 #chromedriver_autoinstaller.install()
 #service = os.environ.get(r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32")
-chrome_options = Options()
+#chrome_options = Options()
+option = webdriver.ChromeOptions()
 #chrome_options.add_argument('--headless')
 
 def clean_and_split(value):
@@ -79,8 +80,9 @@ while start < end:
     data_to_merge['Region (Granular'] = data_to_merge['Region (Granular)'].astype(str)
     granular = data_cop['Region (Granular)']
 
-    #driver = webdriver.Chrome(options=chrome_options
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    #driver = webdriver.Chrome(options=chrome_options)
+    #driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=option)
     #driver.set_window_size(window_size_x, window_size_y)
 
     res = []
