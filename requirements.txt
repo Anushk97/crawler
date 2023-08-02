@@ -7,4 +7,4 @@ lxml
 openpyxl
 webdriver-manager
 setuptools
-chromedriver-autoinstaller
+chromedriver-binary
