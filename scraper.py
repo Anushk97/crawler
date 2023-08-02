@@ -41,7 +41,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 import time
-from tqdm import tqdm
+#from tqdm import tqdm
 import os
 
 #Step 2: Import Data and data transformation
@@ -54,7 +54,7 @@ output_data = pd.DataFrame()
 blocked_data = pd.DataFrame()
 
 total_iterations = len(dataset)
-pbar = tqdm(total=total_iterations, desc='Progress', unit='iteration')
+#pbar = tqdm(total=total_iterations, desc='Progress', unit='iteration')
 my_bar = st.progress(0, text="in progress")
 
 #Step 3: Crawler
