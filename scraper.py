@@ -34,7 +34,8 @@ import requests
 import pandas as pd
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-import chromedriver_autoinstaller
+#import chromedriver_autoinstaller
+import chromedriver_binary
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -63,7 +64,7 @@ my_bar = st.progress(0, text="in progress")
 #chromedriver_autoinstaller.install()
 #service = os.environ.get(r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32")
 #chrome_options = Options()
-option = webdriver.ChromeOptions()
+#option = webdriver.ChromeOptions()
 #chrome_options.add_argument('--headless')
 
 def clean_and_split(value):
@@ -82,7 +83,8 @@ while start < end:
 
     #driver = webdriver.Chrome(options=chrome_options)
     #driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=option)
+    #driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=option)
+    driver = webdriver.Chrome()
     #driver.set_window_size(window_size_x, window_size_y)
 
     res = []
@@ -92,6 +94,7 @@ while start < end:
     for i in granular:
         try:
             driver.get('https://thinkhazard.org/en/')
+            assert "Python" in driver.title
             driver.find_element(By.XPATH,'//*[@id="myModal"]/div/div/div[2]/button[2]').click()
             driver.find_element(By.XPATH,'/html/body/div[2]/div/form/span[2]/input[2]').send_keys(i)
             driver.implicitly_wait(60)
