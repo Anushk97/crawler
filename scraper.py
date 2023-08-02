@@ -79,7 +79,7 @@ while start < end:
     data_to_merge['Region (Granular'] = data_to_merge['Region (Granular)'].astype(str)
     granular = data_cop['Region (Granular)']
 
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     #driver.set_window_size(window_size_x, window_size_y)
 
     res = []
