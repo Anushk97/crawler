@@ -6,5 +6,4 @@ beautifulsoup4
 lxml
 openpyxl
 webdriver-manager
-os-sys
 setuptools
