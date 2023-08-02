@@ -27,7 +27,7 @@ batch_size = 10
 #file_path_source = r'\Users\anushk.farkiya\Downloads\webscraping output - climate data.xlsx'
 #path_to_save_output = r"\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\final_output_3.xlsx"
 #path_to_blocked_values = r'\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\blocked_batch_3.xlsx'
-ChromeDrive_path = r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32"
+#ChromeDrive_path = r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32"
 
 #Step 1: Import Libraries
 import requests
@@ -75,6 +75,22 @@ def clean_and_split(value):
 start = 0
 end = batch_size
 
+with st.echo():
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+    from selenium.webdriver.chrome.service import Service
+    from webdriver_manager.chrome import ChromeDriverManager
+
+    @st.experimental_singleton
+    def get_driver():
+        return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
+    options = Options()
+    options.add_argument('--disable-gpu')
+    options.add_argument('--headless')
+
+    driver = get_driver()
+
 while start < end:
     data_cop = dataset[start:end]
     data_to_merge = data_cop[['Country','Region (HL)','Region (Granular)']]
@@ -84,7 +100,7 @@ while start < end:
     #driver = webdriver.Chrome(options=chrome_options)
     #driver = webdriver.Chrome(ChromeDriverManager().install())
     #driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=option)
-    driver = webdriver.Chrome()
+    #driver = webdriver.Chrome()
     #driver.set_window_size(window_size_x, window_size_y)
 
     res = []
