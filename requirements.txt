@@ -1,0 +1,11 @@
+pandas
+requests
+selenium
+python-time
+tqdm
+beautifulsoup4
+lxml
+openpyxl
+webdriver-manager
+streamlit
+os-sys
