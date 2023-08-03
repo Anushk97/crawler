@@ -8,3 +8,5 @@ openpyxl
 webdriver-manager
 setuptools
 chromedriver-binary
+undetected-chromedriver
+seleniumbase
