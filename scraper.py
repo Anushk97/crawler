@@ -91,7 +91,7 @@ options.add_argument("--headless")
 #options.add_argument('--headless')
 
 #driver = get_driver()
-driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+driver = webdriver.Chrome(ChromeDriverManager().install())
 #driver = webdriver.Chrome(options=options)
 #driver.get('https://thinkhazard.org/en/')
 #st.code(driver.page_source)
