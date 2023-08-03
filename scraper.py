@@ -90,7 +90,9 @@ with st.echo():
     options.add_argument('--headless')
 
     driver = get_driver()
-
+    driver.get('https://thinkhazard.org/en/')
+    st.code(driver.page_source)
+    
     while start < end:
         data_cop = dataset[start:end]
         data_to_merge = data_cop[['Country','Region (HL)','Region (Granular)']]
@@ -109,8 +111,8 @@ with st.echo():
         st.write(granular)
         for i in granular:
             try:
-                driver.get('https://thinkhazard.org/en/')
-                assert "Python" in driver.title
+                #driver.get('https://thinkhazard.org/en/')
+                #assert "Python" in driver.title
                 driver.find_element(By.XPATH,'//*[@id="myModal"]/div/div/div[2]/button[2]').click()
                 driver.find_element(By.XPATH,'/html/body/div[2]/div/form/span[2]/input[2]').send_keys(i)
                 driver.implicitly_wait(60)
