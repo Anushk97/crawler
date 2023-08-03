@@ -91,7 +91,7 @@ options.add_argument("--disable-features=VizDisplayCompositor")
 #options.add_argument('--headless')
 
 #driver = get_driver()
-driver = webdriver.Chrome(options=options, service_log_path='selenium.log')
+driver = webdriver.Chrome(options=options)
 #driver.get('https://thinkhazard.org/en/')
 #st.code(driver.page_source)
 
