@@ -80,13 +80,13 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 options = Options()
-options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--headless")
 
 #driver = get_driver()
 service = Service()
-options = webdriver.ChromeOptions()
+#options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=service, options=options)
 #driver = webdriver.Chrome(ChromeDriverManager().install())
 #driver = webdriver.Chrome(options=options)
