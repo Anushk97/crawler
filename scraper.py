@@ -96,7 +96,7 @@ driver = webdriver.Chrome(service=service, options=options)
 while start < end:
     data_cop = dataset[start:end]
     data_to_merge = data_cop[['Country','Region (HL)','Region (Granular)']]
-    data_to_merge['Region (Granular'] = data_to_merge['Region (Granular)'].astype(str)
+    #data_to_merge['Region (Granular'] = data_to_merge['Region (Granular)'].astype(str)
     granular = data_cop['Region (Granular)']
 
     #driver = webdriver.Chrome(options=chrome_options)
@@ -146,9 +146,10 @@ while start < end:
     table = pd.pivot_table(df, index=['Region (Granular)'], columns='Col', values='level', aggfunc=lambda x: ' '.join(x), sort = False)
     #table['Region (Granular)'] = table['Region (Granular)'].astype(str)
     #final = pd.merge(table, data_to_merge, on =
-    final = pd.concat([table, data_to_merge.set_index('Region (Granular)')], axis=1).reset_index()
-    #final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
-
+    #final = pd.concat([table, data_to_merge.set_index('Region (Granular)')], axis=1).reset_index()
+    final = pd.merge(data_to_merge, table, on='Region (Granular)')
+    final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
+    
     output_data = output_data._append(final)
     blocked_data = blocked_data._append(block)
 
