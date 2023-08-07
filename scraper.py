@@ -149,7 +149,7 @@ for k in range(1, total_batches + 1):
         #final = pd.merge(table, data_to_merge, on =
         final = pd.concat([table, data_to_merge.set_index('Region (Granular)')], axis=1).reset_index()
         #final = pd.merge(data_to_merge, table, on='Region (Granular)')
-        final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
+        #final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
         
         output_data = output_data._append(final)
         blocked_data = blocked_data._append(block)
