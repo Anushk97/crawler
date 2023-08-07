@@ -4,7 +4,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-st.title('Call it Crawl it!')
+st.title('Project Crawler')
 
 with st.form("my-form", clear_on_submit=True):
     uploaded_file = st.file_uploader("upload file")
@@ -16,14 +16,14 @@ dataframe = pd.read_excel(uploaded_file)
 data = dataframe.drop(labels=0, axis = 0)
 data.columns = data.iloc[0]
 data = data.drop(labels=1, axis = 0)
-dataset = data[:1000]
+dataset = data[:100]
 
 st.write(dataset)
 
 #Change this values accordingly
 window_size_x = 800 #Enable only when to see the crawler
 window_size_y = 800
-batch_size = 100
+batch_size = 10
 #file_path_source = r'\Users\anushk.farkiya\Downloads\webscraping output - climate data.xlsx'
 #path_to_save_output = r"\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\final_output_3.xlsx"
 #path_to_blocked_values = r'\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\blocked_batch_3.xlsx'
@@ -92,9 +92,9 @@ driver = webdriver.Chrome(service=service, options=options)
 #driver = webdriver.Chrome(options=options)
 #driver.get('https://thinkhazard.org/en/')
 #st.code(driver.page_source)
-batch = 0 
+batch = 1 
 total_batches = len(dataset)/batch_size
-
+st.write('total batches', total_batches) 
 while start < end:
     data_cop = dataset[start:end]
     data_to_merge = data_cop[['Country','Region (HL)','Region (Granular)']]
@@ -110,7 +110,6 @@ while start < end:
     res = []
     val = []
     blocked = []
-    st.write('total batches', total_batches) 
     st.write('batch:',batch, granular)
     for i in granular:
         try:
