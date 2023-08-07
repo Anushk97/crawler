@@ -16,7 +16,7 @@ dataframe = pd.read_excel(uploaded_file)
 data = dataframe.drop(labels=0, axis = 0)
 data.columns = data.iloc[0]
 data = data.drop(labels=1, axis = 0)
-dataset = data[:100]
+dataset = data[:20]
 
 st.write(dataset)
 
@@ -98,7 +98,7 @@ for k in range(1, total_batches + 1):
     while start < end:
         data_cop = dataset[start:end]
         data_to_merge = data_cop[['Country','Region (HL)','Region (Granular)']]
-        #data_to_merge['Region (Granular'] = data_to_merge['Region (Granular)'].astype(str)
+        data_to_merge['Region (Granular'] = data_to_merge['Region (Granular)'].astype(str)
         granular = data_cop['Region (Granular)']
     
         #driver = webdriver.Chrome(options=chrome_options)
@@ -147,8 +147,8 @@ for k in range(1, total_batches + 1):
         table = pd.pivot_table(df, index=['Region (Granular)'], columns='Col', values='level', aggfunc=lambda x: ' '.join(x), sort = False)
         #table['Region (Granular)'] = table['Region (Granular)'].astype(str)
         #final = pd.merge(table, data_to_merge, on =
-        #final = pd.concat([table, data_to_merge.set_index('Region (Granular)')], axis=1).reset_index()
-        final = pd.merge(data_to_merge, table, on='Region (Granular)')
+        final = pd.concat([table, data_to_merge.set_index('Region (Granular)')], axis=1).reset_index()
+        #final = pd.merge(data_to_merge, table, on='Region (Granular)')
         final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
         
         output_data = output_data._append(final)
