@@ -92,6 +92,8 @@ driver = webdriver.Chrome(service=service, options=options)
 #driver = webdriver.Chrome(options=options)
 #driver.get('https://thinkhazard.org/en/')
 #st.code(driver.page_source)
+batch = 0 
+total_batches = len(data)/batch_size
 
 while start < end:
     data_cop = dataset[start:end]
@@ -108,7 +110,8 @@ while start < end:
     res = []
     val = []
     blocked = []
-    st.write(granular)
+    st.write('total batches', total_batches) 
+    st.write('batch:',batch, granular)
     for i in granular:
         try:
             driver.get('https://thinkhazard.org/en/')
@@ -131,7 +134,6 @@ while start < end:
             blocked.append(i)
 
         #pbar.update(1)
-        #my_bar.progress(x + 1, text='in progress')
         start += 1
 
     processed = [clean_and_split(value) for value in res]
@@ -153,7 +155,9 @@ while start < end:
     output_data = output_data._append(final)
     blocked_data = blocked_data._append(block)
 
-    end += 10
+    end += batch_size
+    batch += 1
+    my_bar.progress(batch + 1, text='in progress')
     if end > len(dataset):
         break
     else:
