@@ -92,7 +92,7 @@ driver = webdriver.Chrome(service=service, options=options)
 #driver = webdriver.Chrome(options=options)
 #driver.get('https://thinkhazard.org/en/')
 #st.code(driver.page_source)
-total_batches = len(dataset)/batch_size
+total_batches = int(len(dataset)/batch_size)
 st.write('total batches', total_batches) 
 for k in range(1, total_batches + 1):
     while start < end:
