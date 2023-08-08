@@ -81,15 +81,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-options = Options()
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--headless")
-
-#driver = get_driver()
-service = Service()
-#options = webdriver.ChromeOptions()
-driver = webdriver.Chrome(service=service, options=options)
 #driver = webdriver.Chrome(ChromeDriverManager().install())
 #driver = webdriver.Chrome(options=options)
 #driver.get('https://thinkhazard.org/en/')
@@ -105,10 +96,16 @@ while start < end:
     #data_to_merge['Region (Granular'] = data_to_merge['Region (Granular)'].astype(str)
     granular = data_cop['Region (Granular)']
 
+    options = Options()
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--headless")
+
+    #driver = get_driver()
+    service = Service()
+    #options = webdriver.ChromeOptions()
+    driver = webdriver.Chrome(service=service, options=options)
     #driver = webdriver.Chrome(options=chrome_options)
-    #driver = webdriver.Chrome(ChromeDriverManager().install())
-    #driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=option)
-    #driver = webdriver.Chrome()
     #driver.set_window_size(window_size_x, window_size_y)
 
     res = []
@@ -166,6 +163,7 @@ while start < end:
     
     st.write("end", end)
     st.write("start", start)
+
 
 csv = convert_df(output_data)
 csv_blocked = convert_df(blocked_data)
