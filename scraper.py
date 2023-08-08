@@ -164,7 +164,8 @@ while start < end:
     if end < len(dataset):
         end += batch_size 
     
-    #st.write("loop ended")
+    st.write("end", end)
+    st.write("start", start)
 
 csv = convert_df(output_data)
 csv_blocked = convert_df(blocked_data)
