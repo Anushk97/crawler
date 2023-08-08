@@ -16,7 +16,7 @@ dataframe = pd.read_excel(uploaded_file)
 data = dataframe.drop(labels=0, axis = 0)
 data.columns = data.iloc[0]
 data = data.drop(labels=1, axis = 0)
-dataset = data[:50]
+dataset = data[:60]
 
 st.write(dataset)
 
@@ -166,16 +166,16 @@ while start < end:
     
     #st.write("loop ended")
 
-    csv = convert_df(output_data)
-    csv_blocked = convert_df(blocked_data)
-    
-    st.download_button(
-       "Press to Download output",
-       csv,
-       "file.csv",
-       "text/csv",
-       key='download-csv'
-    )
+csv = convert_df(output_data)
+csv_blocked = convert_df(blocked_data)
+
+st.download_button(
+   "Press to Download output",
+   csv,
+   "file.csv",
+   "text/csv",
+   key='download-csv'
+)
 
 #SAVE
 #print(output_data)
