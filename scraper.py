@@ -16,14 +16,14 @@ dataframe = pd.read_excel(uploaded_file)
 data = dataframe.drop(labels=0, axis = 0)
 data.columns = data.iloc[0]
 data = data.drop(labels=1, axis = 0)
-dataset = data[:500]
+dataset = data[:30]
 
 st.write(dataset)
 
 #Change this values accordingly
 window_size_x = 800 #Enable only when to see the crawler
 window_size_y = 800
-batch_size = 100
+batch_size = 10
 #file_path_source = r'\Users\anushk.farkiya\Downloads\webscraping output - climate data.xlsx'
 #path_to_save_output = r"\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\final_output_3.xlsx"
 #path_to_blocked_values = r'\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\blocked_batch_3.xlsx'
@@ -71,7 +71,6 @@ def clean_and_split(value):
     split = cleaned.split("\n")
     return [split.strip() for split in split if split.strip()]
 
-start = 0
 end = batch_size
 
 from selenium import webdriver
@@ -96,6 +95,7 @@ batch = 1
 total_batches = int(len(dataset)/batch_size)
 st.write('total batches', total_batches) 
 
+start = 0
 while start < end:
     data_cop = dataset[start:end]
     data_to_merge = data_cop[['Country','Region (HL)','Region (Granular)']]
@@ -155,13 +155,12 @@ while start < end:
     output_data = output_data._append(final)
     blocked_data = blocked_data._append(block)
 
-    end += batch_size
-    batch += 1
-    if end > len(dataset):
-        break
-    else:
-        continue
-
+    if batch <= total_batches:
+        batch += 1 
+        
+    if end < len(dataset):
+        end += batch_size 
+    
 st.write("loop ended")
 def convert_df(df):
    return df.to_csv(index=False).encode('utf-8')
