@@ -16,14 +16,14 @@ dataframe = pd.read_excel(uploaded_file)
 data = dataframe.drop(labels=0, axis = 0)
 data.columns = data.iloc[0]
 data = data.drop(labels=1, axis = 0)
-dataset = data[:60]
+dataset = data[500:5500]
 
 st.write(dataset)
 
 #Change this values accordingly
 window_size_x = 800 #Enable only when to see the crawler
 window_size_y = 800
-batch_size = 10
+batch_size = 100
 #file_path_source = r'\Users\anushk.farkiya\Downloads\webscraping output - climate data.xlsx'
 #path_to_save_output = r"\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\final_output_3.xlsx"
 #path_to_blocked_values = r'\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\blocked_batch_3.xlsx'
@@ -166,16 +166,16 @@ while start < end:
     
     #st.write("loop ended")
 
-    csv = convert_df(output_data)
-    csv_blocked = convert_df(blocked_data)
-    
-    st.download_button(
-       "Press to Download output",
-       csv,
-       "file.csv",
-       "text/csv",
-       key=f'download-csv-{batch}'
-    )
+csv = convert_df(output_data)
+csv_blocked = convert_df(blocked_data)
+
+st.download_button(
+   "Press to Download output",
+   csv,
+   "file.csv",
+   "text/csv",
+   key='download-csv'
+)
 
 #SAVE
 #print(output_data)
