@@ -166,16 +166,16 @@ while start < end:
     
     #st.write("loop ended")
 
-csv = convert_df(output_data)
-csv_blocked = convert_df(blocked_data)
-
-st.download_button(
-   "Press to Download output",
-   csv,
-   "file.csv",
-   "text/csv",
-   key='download-csv'
-)
+    csv = convert_df(output_data)
+    csv_blocked = convert_df(blocked_data)
+    
+    st.download_button(
+       "Press to Download output",
+       csv,
+       "file.csv",
+       "text/csv",
+       key=f'download-csv-{batch}'
+    )
 
 #SAVE
 #print(output_data)
