@@ -71,6 +71,9 @@ def clean_and_split(value):
     split = cleaned.split("\n")
     return [split.strip() for split in split if split.strip()]
 
+def convert_df(df):
+   return df.to_csv(index=False).encode('utf-8')
+
 end = batch_size
 
 from selenium import webdriver
@@ -161,20 +164,18 @@ while start < end:
     if end < len(dataset):
         end += batch_size 
     
-st.write("loop ended")
-def convert_df(df):
-   return df.to_csv(index=False).encode('utf-8')
+    #st.write("loop ended")
 
-csv = convert_df(output_data)
-csv_blocked = convert_df(blocked_data)
-
-st.download_button(
-   "Press to Download output",
-   csv,
-   "file.csv",
-   "text/csv",
-   key='download-csv'
-)
+    csv = convert_df(output_data)
+    csv_blocked = convert_df(blocked_data)
+    
+    st.download_button(
+       "Press to Download output",
+       csv,
+       "file.csv",
+       "text/csv",
+       key='download-csv'
+    )
 
 #SAVE
 #print(output_data)
