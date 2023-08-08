@@ -16,7 +16,7 @@ dataframe = pd.read_excel(uploaded_file)
 data = dataframe.drop(labels=0, axis = 0)
 data.columns = data.iloc[0]
 data = data.drop(labels=1, axis = 0)
-dataset = data[:5000]
+dataset = data[:500]
 
 st.write(dataset)
 
