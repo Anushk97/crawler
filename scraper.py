@@ -182,10 +182,10 @@ writer.close()
 with open(writer, "rb") as template_file:
         template_byte = template_file.read()
 
-    st.download_button(label="Click to Download Template File",
-                        data=template_byte,
-                        file_name="template.xlsx",
-                        mime='application/octet-stream')
+        st.download_button(label="Click to Download Template File",
+                            data=template_byte,
+                            file_name="template.xlsx",
+                            mime='application/octet-stream')
 
 
 '''
