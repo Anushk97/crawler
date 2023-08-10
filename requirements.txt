@@ -9,4 +9,4 @@ webdriver-manager
 setuptools
 undetected-chromedriver
 seleniumbase
-xlsxwriter
+XlsxWriter
