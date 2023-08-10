@@ -161,7 +161,6 @@ while start < end:
     
     final.to_excel(writer, sheet_name =f'{batch}', index=False) 
 
-    writer.save()
     #output_data = output_data._append(final)
     #blocked_data = blocked_data._append(block)
 
