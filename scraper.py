@@ -3,7 +3,7 @@ import sys
 import streamlit as st
 import pandas as pd
 import numpy as np
-import xlsxwriter
+#import xlsxwriter
 
 st.title('Project Crawler!')
 
