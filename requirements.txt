@@ -10,3 +10,4 @@ setuptools
 undetected-chromedriver
 seleniumbase
 XlsxWriter
+openpyxl
