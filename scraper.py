@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+
 st.title('Project Crawler!')
 
 with st.form("my-form", clear_on_submit=True):
@@ -66,11 +67,13 @@ total_iterations = len(dataset)
 #option = webdriver.ChromeOptions()
 #chrome_options.add_argument('--headless')
 
+@st.cache_data
 def clean_and_split(value):
     cleaned = value.strip()
     split = cleaned.split("\n")
     return [split.strip() for split in split if split.strip()]
 
+@st.cache_data
 def convert_df(df):
    return df.to_csv(index=False).encode('utf-8')
 
