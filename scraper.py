@@ -94,7 +94,7 @@ st.write('total batches', total_batches)
 
 #create excel workbook
 excel_file = 'output.xlsx'
-writer = pd.ExcelWriter(excel_file, engine='xlsxwriter')
+writer = pd.ExcelWriter(excel_file, engine='openpyxl')
 
 start = 0
 while start < end:
