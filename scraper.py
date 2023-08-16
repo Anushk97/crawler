@@ -170,11 +170,14 @@ while start < end:
     if end < len(dataset):
         end += batch_size 
     
-    st.write("end", end)
-    st.write("start", start)
+    #st.write("end", end)
+    #st.write("start", start)
 
 
 csv = convert_df(output_data)
+csv_blocked = convert_df(blocked_data)
+
+st.write(csv_blocked)
 
 st.download_button(
    "Press to Download output",
