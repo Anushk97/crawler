@@ -44,7 +44,7 @@ data = pd.read_excel(uploaded_file)
 #data = data.drop(labels=1, axis = 0)
 dataset = data[:40]
 #print(data)
-data = data[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfires', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
+#data = data[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfires', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
 #print(data)
 
 output_data = pd.DataFrame()
@@ -149,6 +149,9 @@ while start < end:
         for _, row in final.iterrows():
             csv_writer.writerow(row)
 
+    if batch <= total_batches:
+        batch += 1
+    
     if end < len(data):
         end += batch_size
 
