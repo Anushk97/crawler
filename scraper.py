@@ -161,8 +161,8 @@ while start < end:
     
     # final.to_excel(writer, sheet_name =f'{batch}', index=False) 
 
-    output_data = output_data._append(final)
-    blocked_data = blocked_data._append(block)
+    #output_data = output_data._append(final)
+    #blocked_data = blocked_data._append(block)
 
     if batch <= total_batches:
         batch += 1 
@@ -174,9 +174,11 @@ while start < end:
     st.write("start", start)
 
 
+csv = convert_df(final)
+
 st.download_button(
    "Press to Download output",
-   output_data,
+   csv,
    "final.csv",
    "text/csv",
    key='download-csv'
