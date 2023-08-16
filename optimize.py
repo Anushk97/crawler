@@ -33,7 +33,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 import time
-from tqdm import tqdm
+# from tqdm import tqdm
 import os
 import csv
 
