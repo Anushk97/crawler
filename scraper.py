@@ -175,9 +175,8 @@ while start < end:
 
 
 csv = convert_df(output_data)
-csv_blocked = convert_df(blocked_data)
 
-st.write(csv_blocked)
+st.write(blocked_data)
 
 st.download_button(
    "Press to Download output",
