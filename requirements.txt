@@ -8,6 +8,5 @@ openpyxl
 webdriver-manager
 setuptools
 undetected-chromedriver
-seleniumbase
 XlsxWriter
 openpyxl
