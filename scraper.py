@@ -176,7 +176,7 @@ while start < end:
 
 st.download_button(
    "Press to Download output",
-   writer,
+   csv,
    "output_data.csv",
    "text/csv",
    key='download-csv'
