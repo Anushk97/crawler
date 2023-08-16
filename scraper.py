@@ -17,14 +17,14 @@ dataframe = pd.read_excel(uploaded_file)
 data = dataframe.drop(labels=0, axis = 0)
 data.columns = data.iloc[0]
 data = data.drop(labels=1, axis = 0)
-dataset = data[:5000]
+dataset = data[:30]
 
 st.write(dataset)
 
 #Change this values accordingly
 window_size_x = 800 #Enable only when to see the crawler
 window_size_y = 800
-batch_size = 100
+batch_size = 10
 #file_path_source = r'\Users\anushk.farkiya\Downloads\webscraping output - climate data.xlsx'
 #path_to_save_output = r"\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\final_output_3.xlsx"
 #path_to_blocked_values = r'\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\blocked_batch_3.xlsx'
@@ -159,10 +159,10 @@ while start < end:
     final = pd.merge(data_to_merge, table, on='Region (Granular)')
     final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
     
-    final.to_excel(writer, sheet_name =f'{batch}', index=False) 
+    # final.to_excel(writer, sheet_name =f'{batch}', index=False) 
 
-    #output_data = output_data._append(final)
-    #blocked_data = blocked_data._append(block)
+    output_data = output_data._append(final)
+    blocked_data = blocked_data._append(block)
 
     if batch <= total_batches:
         batch += 1 
@@ -174,29 +174,14 @@ while start < end:
     st.write("start", start)
 
 
-#csv = convert_df(output_data)
-#csv_blocked = convert_df(blocked_data)
-writer.close()
-
-
-with open(writer, "rb") as template_file:
-        template_byte = template_file.read()
-
-        st.download_button(label="Click to Download Template File",
-                            data=template_byte,
-                            file_name="template.xlsx",
-                            mime='application/octet-stream')
-
-
-'''
 st.download_button(
    "Press to Download output",
    writer,
-   "file.xlsx",
-   "text/xlsx",
-   key='download-xlsx'
+   "output_data.csv",
+   "text/csv",
+   key='download-csv'
 )
-'''
+
 #SAVE
 #print(output_data)
 #output_data.to_excel(r"\Users\anushk.farkiya\PycharmProjects\scraper\final_output_2.xlsx", index = True)
