@@ -92,10 +92,6 @@ batch = 1
 total_batches = int(len(dataset)/batch_size)
 st.write('total batches', total_batches) 
 
-#create excel workbook
-excel_file = 'output.xlsx'
-writer = pd.ExcelWriter(excel_file, engine='openpyxl')
-
 start = 0
 while start < end:
     data_cop = dataset[start:end]
