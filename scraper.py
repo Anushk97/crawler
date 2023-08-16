@@ -186,6 +186,7 @@ st.download_button(
    key='download-csv'
 )
 
+st.stop()
 #SAVE
 #print(output_data)
 #output_data.to_excel(r"\Users\anushk.farkiya\PycharmProjects\scraper\final_output_2.xlsx", index = True)
