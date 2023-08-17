@@ -17,7 +17,7 @@ with st.form("my-form", clear_on_submit=True):
 #Change this values accordingly
 window_size_x = 800 #Enable only when to see the crawler
 window_size_y = 800
-batch_size = 1000
+batch_size = 100
 #file_path_source = r'/Users/emmy/Desktop/scraper/webscraping output - climate data (2).xlsx'
 #path_to_save_output = r"/Users/emmy/Desktop/scraper/final_output_3.xlsx"
 #path_to_blocked_values = r'/Users/emmy/Desktop/scraper/blocked_batch_3.xlsx'
