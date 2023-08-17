@@ -7,7 +7,7 @@ import numpy as np
 
 st.title('Project Crawler!')
 
-user_input = st.text_input("name file", default_value_goes_here)
+user_input = st.text_input("name file")
 
 doc = load_sample_doc(path="Test.docx")
 with st.form("my-form", clear_on_submit=True):
