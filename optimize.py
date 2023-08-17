@@ -74,9 +74,11 @@ batch = 1
 total_batches = int(len(dataset)/batch_size)
 st.write('total batches', total_batches)
 
+'''
 with open('final_output_2.csv', mode='w', newline='') as file:
     csv_writer = csv.writer(file)
-    csv_writer.writerow(data.columns)
+    csv_writer.writerow(dataset.columns[3:])
+'''
 
 while start < end:
     data_cop = dataset[start:end]
@@ -135,10 +137,10 @@ while start < end:
     block = pd.DataFrame(blocked, columns=['blocked'])
     table = pd.pivot_table(df, index=['Region (Granular)'], columns='Col', values='level', aggfunc=lambda x: ' '.join(x), sort = False)
     #print('table', table)
-    final = pd.concat([table, data_to_merge], axis=1)
+    #final = pd.concat([table, data_to_merge], axis=1)
     #print(final)
-    #final = pd.merge(data_to_merge, table, on='Region (Granular)')
-    #final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
+    final = pd.merge(table, data_to_merge, on='Region (Granular)')
+    final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
     #print('final', final)
 
     #output_data = output_data._append(final)
