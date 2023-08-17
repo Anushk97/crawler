@@ -7,14 +7,6 @@ import numpy as np
 
 st.title('Project Crawler!')
 
-import base64
-from io import BytesIO
-
-import docx
-import streamlit.components.v1 as components
-from docx import Document
-import streamlit as st
-
 user_input = st.text_input("name file", default_value_goes_here)
 
 doc = load_sample_doc(path="Test.docx")
