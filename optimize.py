@@ -68,6 +68,11 @@ def clean_and_split(value):
 def convert_df(df):
    return df.to_csv(index=False).encode('utf-8')
 
+def generate_download_button(csv_data, filename, file_label):
+    st.download_button(label=f"Download {file_label} as CSV",
+                           data=csv_data,
+                           file_name=f"{filename}.csv")
+
 start = 0
 end = batch_size
 batch = 1
@@ -75,7 +80,7 @@ total_batches = int(len(dataset)/batch_size)
 st.write('total batches', total_batches)
 
 
-with open('zinger3.csv', mode='w', newline='') as file:
+with open('output.csv', mode='w', newline='') as file:
     csv_writer = csv.writer(file)
     csv_writer.writerow(dataset.columns)
 
@@ -138,19 +143,19 @@ while start < end:
     table = pd.pivot_table(df, index=['Region (Granular)'], columns='Col', values='level', aggfunc=lambda x: ' '.join(x), sort = False)
     table = table.reset_index()
     table = table[['Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
-    st.write('table', table)
+    #st.write('table', table)
     #print('table', table)
     #final = pd.concat([table, data_to_merge], axis=1)
     #print(final)
     final = pd.merge(table, data_to_merge, on='Region (Granular)')
     final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
-    st.write('final', final)
+    #st.write('final', final)
     #print('final', final)
 
     #output_data = output_data._append(final)
-    #blocked_data = blocked_data._append(block)
+    blocked_data = blocked_data._append(block)
 
-    with open('zinger3.csv', mode='a', newline='') as file:
+    with open('output.csv', mode='a', newline='') as file:
         csv_writer = csv.writer(file)
         for _, row in final.iterrows():
             csv_writer.writerow(row)
@@ -161,9 +166,11 @@ while start < end:
     if end < len(dataset):
         end += batch_size
 
+st.write('blocked', blocked_data)
+
 st.download_button(
     "Press to Download output",
-    open('zinger3.csv', 'rb').read(),
+    open('output.csv', 'rb').read(),
     "zinger3.csv",
     "text/csv",
     key='download-csv'
