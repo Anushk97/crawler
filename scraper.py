@@ -45,6 +45,7 @@ from bs4 import BeautifulSoup
 import time
 #from tqdm import tqdm
 import os
+import csv
 
 #Step 2: Import Data and data transformation
 #data = pd.read_excel(file_path_source)
