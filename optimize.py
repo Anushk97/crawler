@@ -7,6 +7,17 @@ import numpy as np
 
 st.title('Project Crawler!')
 
+import base64
+from io import BytesIO
+
+import docx
+import streamlit.components.v1 as components
+from docx import Document
+import streamlit as st
+
+user_input = st.text_input("name file", default_value_goes_here)
+
+doc = load_sample_doc(path="Test.docx")
 with st.form("my-form", clear_on_submit=True):
     uploaded_file = st.file_uploader("upload file")
     submitted = st.form_submit_button("submit")
@@ -75,7 +86,7 @@ total_batches = int(len(dataset)/batch_size)
 st.write('total batches', total_batches)
 
 
-with open('output.csv', mode='w', newline='') as file:
+with open(f'{user_input}.csv', mode='w', newline='') as file:
     csv_writer = csv.writer(file)
     csv_writer.writerow(dataset.columns)
 
@@ -150,7 +161,7 @@ while start < end:
     #output_data = output_data._append(final)
     blocked_data = blocked_data._append(block)
 
-    with open('output.csv', mode='a', newline='') as file:
+    with open(f'{user_input}.csv', mode='a', newline='') as file:
         csv_writer = csv.writer(file)
         for _, row in final.iterrows():
             csv_writer.writerow(row)
@@ -165,8 +176,8 @@ st.write('blocked', blocked_data)
 
 st.download_button(
     "Press to Download output",
-    open('output.csv', 'rb').read(),
-    "output.csv",
+    open(f'{user_input}.csv', 'rb').read(),
+    f"{user_input}.csv",
     "text/csv",
     key='download-csv'
 )
