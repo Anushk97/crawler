@@ -143,12 +143,14 @@ while start < end:
 
         #pbar.update(1)
         start += 1
+        st.write("start", start)
+        
 
     processed = [clean_and_split(value) for value in res]
 
     df = pd.DataFrame(processed, columns=['Col', 'level'])
-    df['Country'] = data_cop['Country']
-    df['Region HL'] = data_cop['Region (HL)']
+    #df['Country'] = data_cop['Country']
+    #df['Region HL'] = data_cop['Region (HL)']
     df['Region (Granular)'] = val
     block = pd.DataFrame(blocked, columns=['blocked'])
 
@@ -177,8 +179,8 @@ while start < end:
     if end < len(dataset):
         end += batch_size 
     
-    #st.write("end", end)
-    #st.write("start", start)
+    st.write("end", end)
+    st.write("start", start)
 
 #csv = convert_df(output_data)
 
