@@ -68,11 +68,6 @@ def clean_and_split(value):
 def convert_df(df):
    return df.to_csv(index=False).encode('utf-8')
 
-def generate_download_button(csv_data, filename, file_label):
-    st.download_button(label=f"Download {file_label} as CSV",
-                           data=csv_data,
-                           file_name=f"{filename}.csv")
-
 start = 0
 end = batch_size
 batch = 1
@@ -171,7 +166,7 @@ st.write('blocked', blocked_data)
 st.download_button(
     "Press to Download output",
     open('output.csv', 'rb').read(),
-    "zinger3.csv",
+    "output.csv",
     "text/csv",
     key='download-csv'
 )
