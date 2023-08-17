@@ -126,8 +126,6 @@ while start < end:
     st.write(table)
     table = table[['Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
     
-    #table['Region (Granular)'] = table['Region (Granular)'].astype(str)
-    #final = pd.merge(table, data_to_merge, on =
     #final = pd.concat([table, data_to_merge.set_index('Region (Granular)')], axis=1).reset_index()
     #final = pd.merge(data_to_merge, table, on='Region (Granular)')
     #final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
