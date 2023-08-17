@@ -126,9 +126,9 @@ while start < end:
             #assert "Python" in driver.title
             driver.find_element(By.XPATH,'//*[@id="myModal"]/div/div/div[2]/button[2]').click()
             driver.find_element(By.XPATH,'/html/body/div[2]/div/form/span[2]/input[2]').send_keys(i)
-            driver.implicitly_wait(60)
+            driver.implicitly_wait(5)
             driver.find_element(By.XPATH, '//*[@id="search"]/span[2]/div/div/div[1]').click()
-            driver.implicitly_wait(60)
+            driver.implicitly_wait(10)
             URL = driver.current_url
             resp = requests.get(URL)
             soup = BeautifulSoup(resp.text, features='lxml')
