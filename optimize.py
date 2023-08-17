@@ -136,11 +136,13 @@ while start < end:
     df['Region (Granular)'] = val
     block = pd.DataFrame(blocked, columns=['blocked'])
     table = pd.pivot_table(df, index=['Region (Granular)'], columns='Col', values='level', aggfunc=lambda x: ' '.join(x), sort = False)
-    st.write(table)
+    table = table[['Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
+    st.write('table', table)
     #print('table', table)
     #final = pd.concat([table, data_to_merge], axis=1)
     #print(final)
     final = pd.merge(table, data_to_merge, on='Region (Granular)')
+    st.write('final', final)
     #final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
     #print('final', final)
 
