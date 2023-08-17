@@ -138,11 +138,11 @@ while start < end:
     final = pd.concat([table, data_to_merge], axis=1)
     #print(final)
     #final = pd.merge(data_to_merge, table, on='Region (Granular)')
-    final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
+    #final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
     #print('final', final)
 
-    output_data = output_data._append(final)
-    blocked_data = blocked_data._append(block)
+    #output_data = output_data._append(final)
+    #blocked_data = blocked_data._append(block)
 
     with open('final_output_2.csv', mode='a', newline='') as file:
         csv_writer = csv.writer(file)
