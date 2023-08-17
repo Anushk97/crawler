@@ -17,14 +17,14 @@ dataframe = pd.read_excel(uploaded_file)
 #data = dataframe.drop(labels=0, axis = 0)
 #data.columns = data.iloc[0]
 #data = data.drop(labels=1, axis = 0)
-dataset = dataframe[:50]
+dataset = dataframe[:60]
 
 st.write(dataset)
 
 #Change this values accordingly
 window_size_x = 800 #Enable only when to see the crawler
 window_size_y = 800
-batch_size = 50
+batch_size = 20
 #file_path_source = r'\Users\anushk.farkiya\Downloads\webscraping output - climate data.xlsx'
 #path_to_save_output = r"\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\final_output_3.xlsx"
 #path_to_blocked_values = r'\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\blocked_batch_3.xlsx'
