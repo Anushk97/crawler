@@ -99,7 +99,7 @@ while start < end:
     res = []
     val = []
     blocked = []
-    st.write('batch:', batch, end=' ')
+    st.write('batch:', batch)
 
     for i in granular:
         try:
@@ -155,4 +155,10 @@ while start < end:
     if end < len(data):
         end += batch_size
 
-
+st.download_button(
+    "Press to Download output",
+    open('final_output_2.csv', 'rb').read(),
+    "final_output_2.csv",
+    "text/csv",
+    key='download-csv'
+)
