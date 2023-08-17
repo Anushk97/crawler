@@ -152,7 +152,7 @@ while start < end:
     if batch <= total_batches:
         batch += 1
     
-    if end < len(data):
+    if end < len(dataset):
         end += batch_size
 
 st.download_button(
