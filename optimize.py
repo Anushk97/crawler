@@ -17,7 +17,7 @@ with st.form("my-form", clear_on_submit=True):
 #Change this values accordingly
 window_size_x = 800 #Enable only when to see the crawler
 window_size_y = 800
-batch_size = 10
+batch_size = 1000
 #file_path_source = r'/Users/emmy/Desktop/scraper/webscraping output - climate data (2).xlsx'
 #path_to_save_output = r"/Users/emmy/Desktop/scraper/final_output_3.xlsx"
 #path_to_blocked_values = r'/Users/emmy/Desktop/scraper/blocked_batch_3.xlsx'
@@ -44,7 +44,8 @@ data = pd.read_excel(uploaded_file)
 #data = data.drop(labels=0, axis = 0)
 #data.columns = data.iloc[0]
 #data = data.drop(labels=1, axis = 0)
-dataset = data[:5000]
+dataset = data[:2000]
+st.write(dataset)
 #print(data)
 #data = data[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfires', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
 #print(data)
@@ -84,7 +85,7 @@ with open(f'{user_input}.csv', mode='w', newline='') as file:
 
 while start < end:
     data_cop = dataset[start:end]
-    data_to_merge = data_cop[['Country','Region (HL)','Region (Granular)']]
+    #data_to_merge = data_cop[['Country','Region (HL)','Region (Granular)']]
     #print('data_to_merge', data_to_merge)
     granular = data_cop['Region (Granular)']
 
@@ -133,8 +134,8 @@ while start < end:
 
     df = pd.DataFrame(processed, columns=['Col', 'level'])
     #print('df', df)
-    df['Country'] = data_cop['Country']
-    df['Region HL'] = data_cop['Region (HL)']
+    #df['Country'] = data_cop['Country']
+    #df['Region HL'] = data_cop['Region (HL)']
     df['Region (Granular)'] = val
     block = pd.DataFrame(blocked, columns=['blocked'])
     table = pd.pivot_table(df, index=['Region (Granular)'], columns='Col', values='level', aggfunc=lambda x: ' '.join(x), sort = False)
@@ -144,8 +145,8 @@ while start < end:
     #print('table', table)
     #final = pd.concat([table, data_to_merge], axis=1)
     #print(final)
-    final = pd.merge(table, data_to_merge, on='Region (Granular)')
-    final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
+    #final = pd.merge(table, data_to_merge, on='Region (Granular)')
+    #final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
     #st.write('final', final)
     #print('final', final)
 
@@ -154,7 +155,7 @@ while start < end:
 
     with open(f'{user_input}.csv', mode='a', newline='') as file:
         csv_writer = csv.writer(file)
-        for _, row in final.iterrows():
+        for _, row in table.iterrows():
             csv_writer.writerow(row)
 
     if batch <= total_batches:
