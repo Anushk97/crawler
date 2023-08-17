@@ -50,7 +50,7 @@ dataset = data[:40]
 output_data = pd.DataFrame()
 blocked_data = pd.DataFrame()
 
-total_iterations = len(data)
+total_iterations = len(dataset)
 #pbar = tqdm(total=total_iterations, desc='Progress', unit='iteration')
 
 #Step 3: Crawler
