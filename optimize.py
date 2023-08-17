@@ -74,11 +74,11 @@ batch = 1
 total_batches = int(len(dataset)/batch_size)
 st.write('total batches', total_batches)
 
-'''
-with open('final_output_2.csv', mode='w', newline='') as file:
+
+with open('zinger3.csv', mode='w', newline='') as file:
     csv_writer = csv.writer(file)
-    csv_writer.writerow(dataset.columns[3:])
-'''
+    csv_writer.writerow(dataset.columns)
+
 
 while start < end:
     data_cop = dataset[start:end]
@@ -143,14 +143,14 @@ while start < end:
     #final = pd.concat([table, data_to_merge], axis=1)
     #print(final)
     final = pd.merge(table, data_to_merge, on='Region (Granular)')
+    final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
     st.write('final', final)
-    #final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
     #print('final', final)
 
     #output_data = output_data._append(final)
     #blocked_data = blocked_data._append(block)
 
-    with open('zinger.csv', mode='a', newline='') as file:
+    with open('zinger3.csv', mode='a', newline='') as file:
         csv_writer = csv.writer(file)
         for _, row in final.iterrows():
             csv_writer.writerow(row)
@@ -163,8 +163,8 @@ while start < end:
 
 st.download_button(
     "Press to Download output",
-    open('zinger.csv', 'rb').read(),
-    "zinger.csv",
+    open('zinger3.csv', 'rb').read(),
+    "zinger3.csv",
     "text/csv",
     key='download-csv'
 )
