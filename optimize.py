@@ -17,7 +17,7 @@ with st.form("my-form", clear_on_submit=True):
 #Change this values accordingly
 window_size_x = 800 #Enable only when to see the crawler
 window_size_y = 800
-batch_size = 100
+batch_size = 20
 #file_path_source = r'/Users/emmy/Desktop/scraper/webscraping output - climate data (2).xlsx'
 #path_to_save_output = r"/Users/emmy/Desktop/scraper/final_output_3.xlsx"
 #path_to_blocked_values = r'/Users/emmy/Desktop/scraper/blocked_batch_3.xlsx'
@@ -44,7 +44,7 @@ data = pd.read_excel(uploaded_file)
 #data = data.drop(labels=0, axis = 0)
 #data.columns = data.iloc[0]
 #data = data.drop(labels=1, axis = 0)
-dataset = data[:2000]
+dataset = data[:60]
 st.write(dataset)
 #print(data)
 #data = data[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfires', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
@@ -111,9 +111,9 @@ while start < end:
             driver.get('https://thinkhazard.org/en/')
             driver.find_element(By.XPATH,'//*[@id="myModal"]/div/div/div[2]/button[2]').click()
             driver.find_element(By.XPATH,'/html/body/div[2]/div/form/span[2]/input[2]').send_keys(i)
-            driver.implicitly_wait(60)
+            driver.implicitly_wait(20)
             driver.find_element(By.XPATH, '//*[@id="search"]/span[2]/div/div/div[1]').click()
-            driver.implicitly_wait(60)
+            driver.implicitly_wait(10)
             URL = driver.current_url
             resp = requests.get(URL)
             soup = BeautifulSoup(resp.text, features='html.parser')
@@ -128,6 +128,7 @@ while start < end:
             blocked.append(i)
 
         start += 1
+        st.write(start)
 
     processed = [clean_and_split(value) for value in res]
     #print('processed', processed)
