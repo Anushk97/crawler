@@ -1,41 +1,12 @@
+#Step 1: Import Libraries
 import sys
-
 import streamlit as st
 import pandas as pd
 import numpy as np
-#import xlsxwriter
-
-st.title('Project Crawler!')
-
-with st.form("my-form", clear_on_submit=True):
-    uploaded_file = st.file_uploader("upload file")
-    submitted = st.form_submit_button("submit")
-#uploaded_file = st.file_uploader("Choose a file")
-
-dataframe = pd.read_excel(uploaded_file)
-
-#data = dataframe.drop(labels=0, axis = 0)
-#data.columns = data.iloc[0]
-#data = data.drop(labels=1, axis = 0)
-dataset = dataframe[:60]
-
-st.write(dataset)
-
-#Change this values accordingly
-window_size_x = 800 #Enable only when to see the crawler
-window_size_y = 800
-batch_size = 20
-#file_path_source = r'\Users\anushk.farkiya\Downloads\webscraping output - climate data.xlsx'
-#path_to_save_output = r"\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\final_output_3.xlsx"
-#path_to_blocked_values = r'\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\blocked_batch_3.xlsx'
-#ChromeDrive_path = r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32"
-
-#Step 1: Import Libraries
 import requests
 import pandas as pd
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-#import chromedriver_autoinstaller
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -43,31 +14,37 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 import time
-#from tqdm import tqdm
 import os
 import csv
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
-#Step 2: Import Data and data transformation
-#data = pd.read_excel(file_path_source)
-#data = dataframe.drop(labels=0, axis = 0)
-#data.columns = data.iloc[0]
-#data = data.drop(labels=1, axis = 0)
-#data = data[1000:]
+#UI - file upload
+st.title('Project Crawler!')
+
+with st.form("my-form", clear_on_submit=True):
+    uploaded_file = st.file_uploader("upload file")
+    submitted = st.form_submit_button("submit")
+
+##Step 2: Import Data and data transformation
+dataframe = pd.read_excel(uploaded_file)
+dataset = dataframe[:60]
+st.write(dataset)
+
+#Change this values accordingly
+window_size_x = 800 #Enable only when to see the crawler
+window_size_y = 800
+batch_size = 20
+#ChromeDrive_path = r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32"
+
+#Initialize DF
 output_data = pd.DataFrame()
 blocked_data = pd.DataFrame()
-
 total_iterations = len(dataset)
-#pbar = tqdm(total=total_iterations, desc='Progress', unit='iteration')
-#my_bar = st.progress(0, text="in progress")
 
-#Step 3: Crawler
-#service = Service(r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32")
-#chromedriver_autoinstaller.install()
-#service = os.environ.get(r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32")
-#chrome_options = Options()
-#option = webdriver.ChromeOptions()
-#chrome_options.add_argument('--headless')
-
+#Define clean and dataframe functions
 @st.cache_data
 def clean_and_split(value):
     cleaned = value.strip()
@@ -78,26 +55,21 @@ def clean_and_split(value):
 def convert_df(df):
    return df.to_csv(index=False).encode('utf-8')
 
+#Initialize values 
+start = 0
 end = batch_size
-
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-
-#driver = webdriver.Chrome(ChromeDriverManager().install())
-#driver = webdriver.Chrome(options=options)
-#driver.get('https://thinkhazard.org/en/')
-#st.code(driver.page_source)
 batch = 1
 total_batches = int(len(dataset)/batch_size)
 st.write('total batches', total_batches) 
 
+columns = ['Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']
+#Initialize CSV file
 with open('final.csv', mode='w', newline='') as file:
     csv_writer = csv.writer(file)
-    csv_writer.writerow(dataset.columns)
+    csv_writer.writerow(columns)
 
-start = 0
+
+#MAIN WHILE LOOP
 while start < end:
     data_cop = dataset[start:end]
     #data_to_merge = data_cop[['Country','Region (HL)','Region (Granular)']]
@@ -109,11 +81,8 @@ while start < end:
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--headless")
 
-    #driver = get_driver()
     service = Service()
-    #options = webdriver.ChromeOptions()
     driver = webdriver.Chrome(service=service, options=options)
-    #driver = webdriver.Chrome(options=chrome_options)
     #driver.set_window_size(window_size_x, window_size_y)
 
     res = []
@@ -123,7 +92,6 @@ while start < end:
     for i in granular:
         try:
             driver.get('https://thinkhazard.org/en/')
-            #assert "Python" in driver.title
             driver.find_element(By.XPATH,'//*[@id="myModal"]/div/div/div[2]/button[2]').click()
             driver.find_element(By.XPATH,'/html/body/div[2]/div/form/span[2]/input[2]').send_keys(i)
             driver.implicitly_wait(5)
@@ -141,7 +109,6 @@ while start < end:
             print(i, 'blocked')
             blocked.append(i)
 
-        #pbar.update(1)
         start += 1
         st.write("start", start)
         
@@ -149,8 +116,7 @@ while start < end:
     processed = [clean_and_split(value) for value in res]
 
     df = pd.DataFrame(processed, columns=['Col', 'level'])
-    #df['Country'] = data_cop['Country']
-    #df['Region HL'] = data_cop['Region (HL)']
+    
     df['Region (Granular)'] = val
     block = pd.DataFrame(blocked, columns=['blocked'])
 
@@ -158,7 +124,7 @@ while start < end:
     table = pd.pivot_table(df, index=['Region (Granular)'], columns='Col', values='level', aggfunc=lambda x: ' '.join(x), sort = False)
     table = table.reset_index()
     st.write(table)
-    table = table[['Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
+    table = table[['Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
     
     #table['Region (Granular)'] = table['Region (Granular)'].astype(str)
     #final = pd.merge(table, data_to_merge, on =
@@ -196,11 +162,3 @@ st.download_button(
     "text/csv",
     key='download-csv'
 )
-
-#SAVE
-#print(output_data)
-#output_data.to_excel(r"\Users\anushk.farkiya\PycharmProjects\scraper\final_output_2.xlsx", index = True)
-#blocked_data.to_excel(r'\Users\anushk.farkiya\PycharmProjects\scraper\blocked_batch_2.xlsx')
-
-#NOTES
-#please delete column A in the Excel file
