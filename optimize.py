@@ -141,7 +141,7 @@ while start < end:
     block = pd.DataFrame(blocked, columns=['blocked'])
     table = pd.pivot_table(df, index=['Region (Granular)'], columns='Col', values='level', aggfunc=lambda x: ' '.join(x), sort = False)
     table = table.reset_index()
-    table = table[['Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
+    #table = table[['Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
     #st.write('table', table)
     #print('table', table)
     #final = pd.concat([table, data_to_merge], axis=1)
