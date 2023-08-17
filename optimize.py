@@ -9,7 +9,6 @@ st.title('Project Crawler!')
 
 user_input = st.text_input("name file")
 
-doc = load_sample_doc(path="Test.docx")
 with st.form("my-form", clear_on_submit=True):
     uploaded_file = st.file_uploader("upload file")
     submitted = st.form_submit_button("submit")
