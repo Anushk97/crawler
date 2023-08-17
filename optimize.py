@@ -136,6 +136,7 @@ while start < end:
     df['Region (Granular)'] = val
     block = pd.DataFrame(blocked, columns=['blocked'])
     table = pd.pivot_table(df, index=['Region (Granular)'], columns='Col', values='level', aggfunc=lambda x: ' '.join(x), sort = False)
+    st.write(table)
     #print('table', table)
     #final = pd.concat([table, data_to_merge], axis=1)
     #print(final)
