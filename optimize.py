@@ -140,13 +140,13 @@ while start < end:
     #final = pd.concat([table, data_to_merge], axis=1)
     #print(final)
     final = pd.merge(table, data_to_merge, on='Region (Granular)')
-    final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
+    #final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
     #print('final', final)
 
     #output_data = output_data._append(final)
     #blocked_data = blocked_data._append(block)
 
-    with open('final_output_2.csv', mode='a', newline='') as file:
+    with open('zinger.csv', mode='a', newline='') as file:
         csv_writer = csv.writer(file)
         for _, row in final.iterrows():
             csv_writer.writerow(row)
@@ -159,8 +159,8 @@ while start < end:
 
 st.download_button(
     "Press to Download output",
-    open('final_output_2.csv', 'rb').read(),
-    "final_output_2.csv",
+    open('zinger.csv', 'rb').read(),
+    "zinger.csv",
     "text/csv",
     key='download-csv'
 )
