@@ -17,14 +17,14 @@ dataframe = pd.read_excel(uploaded_file)
 #data = dataframe.drop(labels=0, axis = 0)
 #data.columns = data.iloc[0]
 #data = data.drop(labels=1, axis = 0)
-dataset = dataframe[:5000]
+dataset = dataframe[:500]
 
 st.write(dataset)
 
 #Change this values accordingly
 window_size_x = 800 #Enable only when to see the crawler
 window_size_y = 800
-batch_size = 10
+batch_size = 100
 #file_path_source = r'\Users\anushk.farkiya\Downloads\webscraping output - climate data.xlsx'
 #path_to_save_output = r"\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\final_output_3.xlsx"
 #path_to_blocked_values = r'\Users\anushk.farkiya\PycharmProjects\pythonProject\automate\blocked_batch_3.xlsx'
@@ -95,7 +95,7 @@ st.write('total batches', total_batches)
 start = 0
 while start < end:
     data_cop = dataset[start:end]
-    data_to_merge = data_cop[['Country','Region (HL)','Region (Granular)']]
+    #data_to_merge = data_cop[['Country','Region (HL)','Region (Granular)']]
     #data_to_merge['Region (Granular'] = data_to_merge['Region (Granular)'].astype(str)
     granular = data_cop['Region (Granular)']
 
@@ -149,15 +149,16 @@ while start < end:
 
 
     table = pd.pivot_table(df, index=['Region (Granular)'], columns='Col', values='level', aggfunc=lambda x: ' '.join(x), sort = False)
+    table = table[['Region (Granular)', 'River flood', 'Urban flood', 'Earthquake', 'Landslide', 'Wildfire', 'Water scarcity', 'Cyclone', 'Extreme heat', 'Coastal flood', 'Tsunami', 'Volcano']]
     #table['Region (Granular)'] = table['Region (Granular)'].astype(str)
     #final = pd.merge(table, data_to_merge, on =
     #final = pd.concat([table, data_to_merge.set_index('Region (Granular)')], axis=1).reset_index()
-    final = pd.merge(data_to_merge, table, on='Region (Granular)')
-    final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
+    #final = pd.merge(data_to_merge, table, on='Region (Granular)')
+    #final = final[['Country', 'Region (HL)', 'Region (Granular)', 'River flood', 'Coastal flood', 'Wildfire', 'Urban flood', 'Landslide', 'Tsunami', 'Water scarcity', 'Extreme heat', 'Cyclone', 'Volcano', 'Earthquake']]
     
     # final.to_excel(writer, sheet_name =f'{batch}', index=False) 
 
-    output_data = output_data._append(final)
+    output_data = output_data._append(table)
     blocked_data = blocked_data._append(block)
 
     if batch <= total_batches:
