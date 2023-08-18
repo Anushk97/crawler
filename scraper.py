@@ -30,13 +30,13 @@ with st.form("my-form", clear_on_submit=True):
 
 ##Step 2: Import Data and data transformation
 dataframe = pd.read_excel(uploaded_file)
-dataset = dataframe[:60]
+dataset = dataframe[:10000]
 st.write(dataset)
 
 #Change this values accordingly
 window_size_x = 800 #Enable only when to see the crawler
 window_size_y = 800
-batch_size = 20
+batch_size = 200
 #ChromeDrive_path = r"D:\Users\anushk.farkiya\Downloads\chromedriver_win32"
 
 #Initialize DF
@@ -110,7 +110,7 @@ while start < end:
             blocked.append(i)
 
         start += 1
-        st.write("start", start)
+        #st.write("start", start)
         
 
     processed = [clean_and_split(value) for value in res]
