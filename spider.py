@@ -7,6 +7,10 @@ with st.form("my-form", clear_on_submit=True):
     uploaded_file = st.file_uploader("upload file")
     submitted = st.form_submit_button("submit")
 
+@st.cache_data
+def convert_df(df):
+   return df.to_csv(index=False).encode('utf-8')
+
 
 class DisasterItem(scrapy.Item):
     region_granular = scrapy.Field()
@@ -91,12 +95,14 @@ class MySpider(scrapy.Spider):
         #print(self.df)
         #yield item
 
+    csv = convert_df(df)
+    
     def closed(self, reason):
         # Export the DataFrame to a CSV file
 
         st.download_button(
         "Press to Download output",
-        self.df.to_csv('/Users/emmy/Desktop/scraper/disaster_data.csv', index=False),
+        csv,
         "file.csv",
         "text/csv",
         key='download-csv'
