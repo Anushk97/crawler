@@ -1,4 +1,5 @@
 streamlit
+scrapy
 pandas
 requests
 selenium
