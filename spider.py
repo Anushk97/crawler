@@ -23,7 +23,7 @@ class MySpider(scrapy.Spider):
         self.columns = ['Earthquake', 'Landslide', 'Wildfire', 'Extreme heat', 'River flood', 'Urban flood',
                         'Cyclone', 'Water scarcity', 'Coastal flood', 'Tsunami', 'Volcano', 'region_granular']
         self.df = pd.DataFrame(columns=self.columns)
-        self.urls_dict = urls_dict
+        self.urls_dict = kwargs.get('urls_dict', {})
     
    def start_requests(self):
         #start_urls = {"Bali": "https://thinkhazard.org/en/report/1513-indonesia-bali", "Mumbai": "https://thinkhazard.org/en/report/70183-india-maharashtra-mumbai-suburban", 'Burka': "https://thinkhazard.org/en/report/3468-afghanistan-baghlan-burka"}
