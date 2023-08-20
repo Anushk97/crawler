@@ -95,10 +95,11 @@ class MySpider(scrapy.Spider):
 
         #print(self.df)
         #yield item
-
+        
+        st.write(self.df)
+    
     def closed(self, reason):
         csv = convert_df(self.df)
-        st.write(csv)
         with open('file.csv', 'rb') as f:
             csv_bytes = f.read()
             st.download_button(
