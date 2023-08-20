@@ -111,9 +111,9 @@ def main():
     if download_button:
         download_csv()
 
-def download_csv():
+def download_csv(df):
     # Read the CSV file into a DataFrame
-    df = pd.read_csv("file.csv")
+    #df = pd.read_csv("file.csv")
 
     # Convert the DataFrame to CSV bytes
     csv_bytes = df.to_csv(index=False).encode("utf-8")
