@@ -29,6 +29,7 @@ def main():
         download_csv()
 
 def download_csv():
+    global df
     # Read the CSV file into a DataFrame
     #df = pd.read_csv("file.csv")
 
