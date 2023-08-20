@@ -17,8 +17,7 @@ class DisasterItem(scrapy.Item):
     table_data = scrapy.Field()
 
 class MySpider(scrapy.Spider):
-    name = "my_spider_2"
-
+   name = "my_spider_2"
    def __init__(self, *args, **kwargs):
         super(MySpider, self).__init__(*args, **kwargs)
         self.columns = ['Earthquake', 'Landslide', 'Wildfire', 'Extreme heat', 'River flood', 'Urban flood',
@@ -27,7 +26,7 @@ class MySpider(scrapy.Spider):
         self.urls_dict = kwargs.get('urls_dict', {})
 
     
-    def start_requests(self):
+   def start_requests(self):
         #start_urls = {"Bali": "https://thinkhazard.org/en/report/1513-indonesia-bali", "Mumbai": "https://thinkhazard.org/en/report/70183-india-maharashtra-mumbai-suburban", 'Burka': "https://thinkhazard.org/en/report/3468-afghanistan-baghlan-burka"}
         for k, v in self.urls_dict.items():
             yield scrapy.Request(
@@ -36,7 +35,7 @@ class MySpider(scrapy.Spider):
                 meta={'region': k, 'start_url': v}
             )
 
-    def parse_region(self, response):
+   def parse_region(self, response):
         item = DisasterItem()
         region = response.meta['region']
         start_url = response.meta['start_url']
