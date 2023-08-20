@@ -96,7 +96,7 @@ class MySpider(scrapy.Spider):
         #print(self.df)
         #yield item
 
-    csv = convert_df(df)
+    csv = convert_df(self.df)
     
     st.download_button(
         "Press to Download output",
