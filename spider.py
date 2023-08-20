@@ -96,13 +96,13 @@ class MySpider(scrapy.Spider):
 
     def download_csv(self):
     # Convert the DataFrame to CSV bytes
-    csv_bytes = self.df.to_csv(index=False).encode("utf-8")
+        csv_bytes = self.df.to_csv(index=False).encode("utf-8")
 
     # Display the download button
-    st.download_button(
-            "Press to Download output",
-            csv_bytes,
-            "file.csv",
-            "text/csv",
-            key="download-csv"
-        )
+        st.download_button(
+                "Press to Download output",
+                csv_bytes,
+                "file.csv",
+                "text/csv",
+                key="download-csv"
+            )
