@@ -14,6 +14,37 @@ def convert_df(df):
    return df.to_csv(index=False).encode('utf-8')
 
 
+def main():
+    st.title("Scrapy and Streamlit Integration")
+
+    # Run the Scrapy spider using subprocess
+    run_spider_button = st.button("Run Scrapy Spider")
+    if run_spider_button:
+        # Run the Scrapy spider using subprocess
+        subprocess.run(["scrapy", "my_spider_2", "spider.py"])
+
+    # Display the download button for the CSV file
+    download_button = st.button("Download CSV")
+    if download_button:
+        download_csv()
+
+def download_csv(df):
+    # Read the CSV file into a DataFrame
+    #df = pd.read_csv("file.csv")
+
+    # Convert the DataFrame to CSV bytes
+    csv_bytes = df.to_csv(index=False).encode("utf-8")
+
+    # Display the download button
+    st.download_button(
+        "Press to Download output",
+        csv_bytes,
+        "file.csv",
+        "text/csv",
+        key="download-csv"
+    )
+
+
 class DisasterItem(scrapy.Item):
     region_granular = scrapy.Field()
     start_url = scrapy.Field()
@@ -96,36 +127,8 @@ class MySpider(scrapy.Spider):
 
         #print(self.df)
         #yield item
+        download_csv(self.df)
         
-def main():
-    st.title("Scrapy and Streamlit Integration")
-
-    # Run the Scrapy spider using subprocess
-    run_spider_button = st.button("Run Scrapy Spider")
-    if run_spider_button:
-        # Run the Scrapy spider using subprocess
-        subprocess.run(["scrapy", "my_spider_2", "spider.py"])
-
-    # Display the download button for the CSV file
-    download_button = st.button("Download CSV")
-    if download_button:
-        download_csv()
-
-def download_csv(df):
-    # Read the CSV file into a DataFrame
-    #df = pd.read_csv("file.csv")
-
-    # Convert the DataFrame to CSV bytes
-    csv_bytes = df.to_csv(index=False).encode("utf-8")
-
-    # Display the download button
-    st.download_button(
-        "Press to Download output",
-        csv_bytes,
-        "file.csv",
-        "text/csv",
-        key="download-csv"
-    )
 
 if __name__ == "__main__":
     main()
