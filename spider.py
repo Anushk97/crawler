@@ -97,13 +97,25 @@ class MySpider(scrapy.Spider):
     def download_csv(self):
     # Convert the DataFrame to CSV bytes
         csv_bytes = self.df.to_csv(index=False).encode("utf-8")
-
+        return csv_bytes
     # Display the download button
 
-st.download_button(
-        "Press to Download output",
-        csv_bytes,
-        "file.csv",
-        "text/csv",
-        key="download-csv"
-    )
+def main():
+    # Run the Scrapy spider
+    process = CrawlerProcess()
+    process.crawl(MySpider)
+    process.start()
+
+    download_button = st.button("Download CSV")
+    if download_button:
+        csv_bytes = MySpider().download_csv()  # Call download_csv method
+        st.download_button(
+            "Press to Download output",
+            csv_bytes,
+            "file.csv",
+            "text/csv",
+            key="download-csv"
+        )
+
+if __name__ == "__main__":
+    main()
