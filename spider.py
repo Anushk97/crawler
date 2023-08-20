@@ -2,6 +2,7 @@ import scrapy
 import pandas as pd
 import streamlit as st
 import subprocess
+from scrapy.crawler import CrawlerProcess
 
 st.title('Project Crawler!')
 
