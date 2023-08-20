@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 import subprocess
 from scrapy.crawler import CrawlerProcess
-
+from scrapy.http import Request
 #st.title('Project Crawler!')
 
 @st.cache_data
@@ -23,8 +23,7 @@ class MySpider(scrapy.Spider):
         self.columns = ['Earthquake', 'Landslide', 'Wildfire', 'Extreme heat', 'River flood', 'Urban flood',
                         'Cyclone', 'Water scarcity', 'Coastal flood', 'Tsunami', 'Volcano', 'region_granular']
         self.df = pd.DataFrame(columns=self.columns)
-        self.urls_dict = kwargs.get('urls_dict', {})
-
+        self.urls_dict = urls_dict
     
    def start_requests(self):
         #start_urls = {"Bali": "https://thinkhazard.org/en/report/1513-indonesia-bali", "Mumbai": "https://thinkhazard.org/en/report/70183-india-maharashtra-mumbai-suburban", 'Burka': "https://thinkhazard.org/en/report/3468-afghanistan-baghlan-burka"}
@@ -99,13 +98,14 @@ def main():
     if submitted and uploaded_file:
         urls_df = pd.read_csv(uploaded_file)
         urls_df = urls_df[:100]  # Limiting to 100 rows for demonstration
+        urls_dict = urls_df.set_index("region")['url'].to_dict()  
 
         process = CrawlerProcess(settings={
             'LOG_ENABLED': False,  # Disable Scrapy logs for cleaner output
         })
 
-        spider = MySpider()
-        process.crawl(spider, urls_df=urls_df)
+        spider = MySpider(urls_dict=urls_dict)
+        process.crawl(spider)
         process.start()
 
         # Display the processed data
