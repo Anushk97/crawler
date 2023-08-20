@@ -104,7 +104,7 @@ def main():
     run_spider_button = st.button("Run Scrapy Spider")
     if run_spider_button:
         # Run the Scrapy spider using subprocess
-        subprocess.run(["my_spider_2"])
+        subprocess.run(["spider"])
 
     # Display the download button for the CSV file
     download_button = st.button("Download CSV")
