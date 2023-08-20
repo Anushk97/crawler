@@ -101,10 +101,10 @@ class MySpider(scrapy.Spider):
 
         return csv
     
-    st.download_button(
-        "Press to Download output",
-        csv,
-        "file.csv",
-        "text/csv",
-        key='download-csv'
-          )
+        st.download_button(
+            "Press to Download output",
+            csv,
+            "file.csv",
+            "text/csv",
+            key='download-csv'
+              )
