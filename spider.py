@@ -23,8 +23,8 @@ class MySpider(scrapy.Spider):
                'Cyclone', 'Water scarcity', 'Coastal flood', 'Tsunami', 'Volcano', 'region_granular']
     df = pd.DataFrame(columns=columns)
 
-    urls_df = pd.read_csv(uploaded_file)
-    urls_df = urls_df[:100]
+    #urls_df = pd.read_csv(uploaded_file)
+    #urls_df = urls_df[:100]
     urls_dict = urls_df.set_index("region")['url'].to_dict()
 
     def start_requests(self):
