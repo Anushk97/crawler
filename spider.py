@@ -26,7 +26,7 @@ class MySpider(scrapy.Spider):
     df = pd.DataFrame(columns=columns)
 
     urls_df = pd.read_csv(uploaded_file)
-    urls_df = urls_df[:5000]
+    urls_df = urls_df[:100]
     urls_dict = urls_df.set_index("region")['url'].to_dict()
 
     def start_requests(self):
