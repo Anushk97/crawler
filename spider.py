@@ -91,35 +91,12 @@ class MySpider(scrapy.Spider):
             value = entry[1]
             self.df.loc[region, keyword] = value
             self.df.loc[region, 'region_granular'] = region
-        # Adding the region_granular as a column
-        #df['region_granular'] = item['region_granular']
-
-        #print(self.df)
-        #yield item
-        download_csv(self.df)
         
+        self.download_csv()
 
-def main():
-    st.title("Scrapy and Streamlit Integration")
-
-    # Run the Scrapy spider using subprocess
-    run_spider_button = st.button("Run Scrapy Spider")
-    if run_spider_button:
-        # Run the Scrapy spider using subprocess
-        subprocess.run(["scrapy", "my_spider_2", "spider.py"])
-
-    # Display the download button for the CSV file
-    download_button = st.button("Download CSV")
-    if download_button:
-        download_csv()
-
-def download_csv():
-    global df
-    # Read the CSV file into a DataFrame
-    #df = pd.read_csv("file.csv")
-
+    def download_csv(self):
     # Convert the DataFrame to CSV bytes
-    csv_bytes = df.to_csv(index=False).encode("utf-8")
+    csv_bytes = self.df.to_csv(index=False).encode("utf-8")
 
     # Display the download button
     st.download_button(
@@ -129,7 +106,4 @@ def download_csv():
         "text/csv",
         key="download-csv"
     )
-
-
-if __name__ == "__main__":
-    main()
+        
