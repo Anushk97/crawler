@@ -98,14 +98,10 @@ class MySpider(scrapy.Spider):
 
     csv = convert_df(df)
     
-    def closed(self, reason):
-        # Export the DataFrame to a CSV file
-
-        st.download_button(
-        "Press to Download output",
-        csv,
-        "file.csv",
-        "text/csv",
-        key='download-csv'
+st.download_button(
+    "Press to Download output",
+    csv,
+    "file.csv",
+    "text/csv",
+    key='download-csv'
       )
-        self.log('DataFrame exported to CSV.')
