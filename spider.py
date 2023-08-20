@@ -101,22 +101,13 @@ class MySpider(scrapy.Spider):
         return csv_bytes
     # Display the download button
 
-def main():
-    # Run the Scrapy spider
-    process = CrawlerProcess()
-    process.crawl(MySpider)
-    process.start()
 
-    download_button = st.button("Download CSV")
-    if download_button:
-        csv_bytes = MySpider().download_csv()  # Call download_csv method
-        st.download_button(
-            "Press to Download output",
-            csv_bytes,
-            "file.csv",
-            "text/csv",
-            key="download-csv"
-        )
 
-if __name__ == "__main__":
-    main()
+st.download_button(
+    "Press to Download output",
+    csv_bytes,
+    "file.csv",
+    "text/csv",
+    key="download-csv"
+)
+
