@@ -28,7 +28,7 @@ def main():
     if download_button:
         download_csv()
 
-def download_csv(df):
+def download_csv():
     # Read the CSV file into a DataFrame
     #df = pd.read_csv("file.csv")
 
