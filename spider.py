@@ -4,11 +4,7 @@ import streamlit as st
 import subprocess
 from scrapy.crawler import CrawlerProcess
 
-st.title('Project Crawler!')
-
-with st.form("my-form", clear_on_submit=True):
-    uploaded_file = st.file_uploader("upload file")
-    submitted = st.form_submit_button("submit")
+#st.title('Project Crawler!')
 
 @st.cache_data
 def convert_df(df):
@@ -93,7 +89,28 @@ class MySpider(scrapy.Spider):
             self.df.loc[region, keyword] = value
             self.df.loc[region, 'region_granular'] = region
         
-        return df
 
-output = MySpider()
-st.write(output)
+def main():
+    st.title("Disaster Data Processing")
+
+    with st.form("my-form", clear_on_submit=True):
+        uploaded_file = st.file_uploader("Upload CSV file")
+        submitted = st.form_submit_button("Submit")
+
+    if submitted and uploaded_file:
+        urls_df = pd.read_csv(uploaded_file)
+        urls_df = urls_df[:100]  # Limiting to 100 rows for demonstration
+
+        process = CrawlerProcess(settings={
+            'LOG_ENABLED': False,  # Disable Scrapy logs for cleaner output
+        })
+
+        spider = MySpider()
+        process.crawl(spider, urls_df=urls_df)
+        process.start()
+
+        # Display the processed data
+        st.write(spider.df)
+
+if __name__ == "__main__":
+    main()
