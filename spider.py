@@ -1,6 +1,7 @@
 import scrapy
 import pandas as pd
 import streamlit as st
+import subprocess
 
 st.title('Project Crawler!')
 
