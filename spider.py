@@ -100,10 +100,9 @@ class MySpider(scrapy.Spider):
 
     # Display the download button
     st.download_button(
-    "Press to Download output",
-    csv_bytes,
-    "file.csv",
-    "text/csv",
-    key="download-csv"
-    )
-        
+            "Press to Download output",
+            csv_bytes,
+            "file.csv",
+            "text/csv",
+            key="download-csv"
+        )
