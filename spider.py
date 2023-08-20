@@ -98,11 +98,13 @@ class MySpider(scrapy.Spider):
 
     def closed(self, reason):
         csv = convert_df(self.df)
-    
-        st.download_button(
-            "Press to Download output",
-            csv,
-            "file.csv",
-            "text/csv",
-            key='download-csv'
-              )
+        st.write(csv)
+        with open('file.csv', 'rb') as f:
+            csv_bytes = f.read()
+            st.download_button(
+                "Press to Download output",
+                csv_bytes,
+                'file.csv',
+                "text/csv",
+                key='download-csv'
+            )
