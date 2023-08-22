@@ -1,45 +1,44 @@
 import scrapy
 import pandas as pd
-import streamlit as st
-import subprocess
-from scrapy.crawler import CrawlerProcess
-from scrapy.http import Request
-#st.title('Project Crawler!')
 
-@st.cache_data
-def convert_df(df):
-   return df.to_csv(index=False).encode('utf-8')
-
+input_path = '/Users/emmy/Desktop/scraper/input_for_scraper.xlsx'
+output_path = '/Users/emmy/Desktop/scraper/output_by_scraper.csv'
 
 class DisasterItem(scrapy.Item):
-    region_granular = scrapy.Field()
+    region = scrapy.Field()
     start_url = scrapy.Field()
     table_data = scrapy.Field()
 
 class MySpider(scrapy.Spider):
-   name = "my_spider_2"
-   def __init__(self, *args, **kwargs):
-        super(MySpider, self).__init__(*args, **kwargs)
-        self.columns = ['Earthquake', 'Landslide', 'Wildfire', 'Extreme heat', 'River flood', 'Urban flood',
-                        'Cyclone', 'Water scarcity', 'Coastal flood', 'Tsunami', 'Volcano', 'region_granular']
-        self.df = pd.DataFrame(columns=self.columns)
-        self.urls_dict = kwargs.get('urls_dict', {})
-    
-   def start_requests(self):
+    name = "my_spider_2"
+
+    columns = ['Earthquake', 'Landslide', 'Wildfire', 'Extreme heat', 'River flood', 'Urban flood',
+               'Cyclone', 'Water scarcity', 'Coastal flood', 'Tsunami', 'Volcano', 'region']
+    df = pd.DataFrame(columns=columns)
+    final_df = pd.DataFrame(columns=columns)
+
+    #urls_df = pd.read_csv('/Users/emmy/Desktop/scraper/urls_2.csv')
+    urls_df = pd.read_excel(input_path)
+    urls_df = urls_df[:100]
+    urls_dict = urls_df.set_index("region")['url'].to_dict()
+    #print('url_dict', urls_dict)
+
+
+    def start_requests(self):
         #start_urls = {"Bali": "https://thinkhazard.org/en/report/1513-indonesia-bali", "Mumbai": "https://thinkhazard.org/en/report/70183-india-maharashtra-mumbai-suburban", 'Burka': "https://thinkhazard.org/en/report/3468-afghanistan-baghlan-burka"}
-        for k, v in self.urls_dict.items():
+        for region, data in self.urls_dict.items():
             yield scrapy.Request(
-                url=v,
+                url=data,
                 callback=self.parse_region,
-                meta={'region': k, 'start_url': v}
+                meta={'region': region, 'start_url': data}
             )
 
-   def parse_region(self, response):
+    def parse_region(self, response):
         item = DisasterItem()
         region = response.meta['region']
         start_url = response.meta['start_url']
 
-        item["region_granular"] = region
+        item["region"] = region
         item["start_url"] = start_url
 
         # Extract other disaster-related data using selectors
@@ -76,7 +75,6 @@ class MySpider(scrapy.Spider):
             else:
                 relevant_data.append([words[0], words[-1]])
 
-
         #print('relevant_data', relevant_data)
 
         # keyword_column_map = {entry[0]: entry[0] for entry in relevant_data}
@@ -85,31 +83,13 @@ class MySpider(scrapy.Spider):
             keyword = entry[0]
             value = entry[1]
             self.df.loc[region, keyword] = value
-            self.df.loc[region, 'region_granular'] = region
-        
+            self.df.loc[region, 'region'] = region
+        # Adding the region_granular as a column
+        #df['region_granular'] = item['region_granular']
+        self.final_df = pd.merge(self.df, self.urls_df, on='region')
 
-def main():
-    st.title("Disaster Data Processing")
+        #yield item
 
-    with st.form("my-form", clear_on_submit=True):
-        uploaded_file = st.file_uploader("Upload CSV file")
-        submitted = st.form_submit_button("Submit")
-
-    if submitted and uploaded_file:
-        urls_df = pd.read_csv(uploaded_file)
-        urls_df = urls_df[:100]  # Limiting to 100 rows for demonstration
-        urls_dict = urls_df.set_index("region")['url'].to_dict()  
-
-        process = CrawlerProcess(settings={
-            'LOG_ENABLED': False,  # Disable Scrapy logs for cleaner output
-        })
-
-        spider = MySpider(urls_dict=urls_dict)
-        process.crawl(spider)
-        process.start()
-
-        # Display the processed data
-        st.write(spider.df)
-
-if __name__ == "__main__":
-    main()
+    def closed(self, reason):
+        self.final_df.to_csv(output_path, index=False)
+        self.log('DataFrame exported to CSV.')
