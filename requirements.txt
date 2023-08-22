@@ -1,6 +1,5 @@
 streamlit
 scrapy
-subprocess.run
 pandas
 requests
 selenium
