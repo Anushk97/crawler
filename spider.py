@@ -1,8 +1,8 @@
 import scrapy
 import pandas as pd
 
-input_path = '/Users/emmy/Desktop/scraper/input_for_scraper.xlsx'
-output_path = '/Users/emmy/Desktop/scraper/output_by_scraper.csv'
+input_path = 'crawler/input_new.xlsx'
+output_path = 'crawler/output_by_scraper_2.csv'
 
 class DisasterItem(scrapy.Item):
     region = scrapy.Field()
@@ -10,7 +10,7 @@ class DisasterItem(scrapy.Item):
     table_data = scrapy.Field()
 
 class MySpider(scrapy.Spider):
-    name = "my_spider_2"
+    name = "my_spider"
 
     columns = ['Earthquake', 'Landslide', 'Wildfire', 'Extreme heat', 'River flood', 'Urban flood',
                'Cyclone', 'Water scarcity', 'Coastal flood', 'Tsunami', 'Volcano', 'region']
@@ -19,7 +19,7 @@ class MySpider(scrapy.Spider):
 
     #urls_df = pd.read_csv('/Users/emmy/Desktop/scraper/urls_2.csv')
     urls_df = pd.read_excel(input_path)
-    urls_df = urls_df[:100]
+    urls_df = urls_df[:1000]
     urls_dict = urls_df.set_index("region")['url'].to_dict()
     #print('url_dict', urls_dict)
 
