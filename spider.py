@@ -19,7 +19,7 @@ class MySpider(scrapy.Spider):
 
     #urls_df = pd.read_csv('/Users/emmy/Desktop/scraper/urls_2.csv')
     urls_df = pd.read_excel(input_path)
-    urls_df = urls_df[:1000]
+    urls_df = urls_df[:1000] #EDIT THIS; BATCH NUMBER
     urls_dict = urls_df.set_index("region")['url'].to_dict()
     #print('url_dict', urls_dict)
 
